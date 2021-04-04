@@ -33,6 +33,7 @@
         </form>
     </div>
 
+    <x-footer />
     <x-scripts />
 
     <script>

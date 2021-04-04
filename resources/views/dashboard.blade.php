@@ -109,6 +109,7 @@
     @endif
     @endif
 
+    <x-footer />
     <x-scripts />
 
     <script>

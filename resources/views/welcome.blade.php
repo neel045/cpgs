@@ -34,7 +34,7 @@
         @endif
         </p>
       </div>
-
+      <x-footer />
   <x-scripts / >
 </body>
 
