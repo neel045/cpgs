@@ -23,10 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('signup', [ViewController::class, 'signup']);
-Route::get('login', [ViewController::class, 'login']);
-Route::get('dashboard', [ViewController::class, 'dashboard']);
-Route::get('logout', [AuthController::class, 'logout']);
+Route::get('/signup', [ViewController::class, 'signup']);
+Route::get('/login', [ViewController::class, 'login']);
+Route::get('/dashboard', [ViewController::class, 'dashboard']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => ['protect']], function () {
     Route::get('/questions', [TeachersController::class, 'getAllQuestions']);
