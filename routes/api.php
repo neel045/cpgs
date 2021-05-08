@@ -26,6 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/users/signup', [AuthController::class, 'signup']);
 Route::post('/users/login', [AuthController::class, 'login']);
 Route::post('/users/loginteacher', [AuthController::class, 'loginTeacher']);
+Route::get('/users/verifyemail/token/{token}', [AuthController::class, 'verifyEmail']);
 
 
 Route::group(['middleware' => ['protect']], function () {
@@ -38,4 +39,6 @@ Route::group(['middleware' => ['protect']], function () {
     Route::delete('/admin/deleteTeacher/{id}', [AdminController::class, 'deleteTeacher']);
     Route::get('/questions', [TeachersController::class, 'getAllQuestions']);
     Route::post('/generatepaper', [TeachersController::class, 'generatePaper']);
+    Route::get('/getallpapers', [TeachersController::class, 'getAllPapers']);
+    Route::delete('/paper/{id}', [TeachersController::class, 'deletePaper']);
 });

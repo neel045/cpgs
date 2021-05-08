@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Client\ResponseSequence;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-use App\Mail\sendmail;
-use DateTime;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class TeachersController extends Controller
 {
@@ -122,7 +122,7 @@ class TeachersController extends Controller
         }
 
         $questions = [$questionsMark3, $questionsMark4, $questionsMark7, $subject];
-        $paper_name = $subject_code . session('user')[0]->name . time() . ".pdf";
+        $paper_name = $subject_code . "_" . Str::random(10) . "_" . time() . ".pdf";
 
         $pdf = PDF::loadView('paper', compact('questions'));
         Storage::put("papers/" . $paper_name, $pdf->output());
@@ -147,8 +147,27 @@ class TeachersController extends Controller
                     ->attachData($pdf->output(),  $paper_name);
             });
         } catch (\Throwable $th) {
-            return response()->json(["status" => "error",  "message" => "Something Went Wrong"], 500);
+            return response()->json(["status" => "error",  "message" => "Something Went Wrong\n$th->message"], 500);
         }
         return response()->json(["status" => "sucess",  "message" => "Check Your Email Paper Has Been Sent"], 200);
+    }
+
+    function getAllPapers()
+    {
+        $user = session('user')[0];
+        $papers = DB::table('papers')->where('teacher_id', $user->id)->get();
+        return response(['status' => 'Success', "data" => $papers], 200);
+    }
+
+    function deletePaper($id)
+    {
+        $paper = DB::table('papers')->where('paper_id', $id)->get();
+        if (count($paper) == 0) {
+            return response()->json(['status' => "error", "message" => "Paper not found"], 404);
+        }
+        $path = "papers/" . $paper[0]->paper;
+        Storage::delete($path);
+        DB::table('papers')->where('paper_id', $id)->delete();
+        return response()->json(['status' => "sucess", "message" => "Paper has been deleted$path"], 200);
     }
 }

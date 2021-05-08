@@ -17,9 +17,13 @@
         </li>
         @else
         <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="/logout">Log Out</a>
-          </li>
-        @endif
-      </ul>
-    </div>
+        </li>
+    </ul>
+</div>
+{{-- <span class="float-right btn btn-primary" >{{session('user')[0]->admin_name}}</span> --}}
+@endif
   </nav>

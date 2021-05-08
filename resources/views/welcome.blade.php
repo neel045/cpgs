@@ -18,10 +18,14 @@
     <x-navbar />
 
     <div class="jumbotron container">
-        <h1 class="display-4">Welcome TO CPGS</h1>
-        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit expedita voluptatibus harum debitis ab exercitationem maiores dolorem adipisci officiis nisi tempore, iusto vero quam officia vel excepturi eos ullam amet!</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <h1 class="display-5">Welcome TO CPGS</h1>
+        <hr class="my-2">
+        <p>Zero Question Typing effort.</p>
+        <p>Prefilled Blueprint and Up-To-Date Question Bank.</p>
+        <p>Work perfectly on mobile devices as well as pc.</p>
+        <p>This is free for Teacher.</p>
+        <p>Option to Add,Remove Question In the Question Bank.</p>
+        <p>After Generate The Paper The paper is automaticaly send to the Registered Email.</p>
         @if (!session('user'))
         <p class="lead">
             <a class="btn btn-primary btn-lg" href="/signup" role="button">Sign UP Now

@@ -27,7 +27,11 @@ Route::get('/signup', [ViewController::class, 'signup']);
 Route::get('/login', [ViewController::class, 'login']);
 Route::get('/dashboard', [ViewController::class, 'dashboard']);
 Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/me', [ViewController::class, 'profile']);
 
 Route::group(['middleware' => ['protect']], function () {
     Route::get('/questions', [TeachersController::class, 'getAllQuestions']);
+    Route::get('/paper/{id}', [ViewController::class, 'viewPaper']);
+    Route::get('/viewteachers', [ViewController::class, 'getAllTeachers']);
+    Route::get('/viewpapers', [ViewController::class, 'getAllPapers']);
 });

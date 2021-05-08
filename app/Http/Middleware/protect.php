@@ -20,7 +20,10 @@ class protect
         if (!$request->session()->has('user')) {
             return response()->json(['status' =>  "error", 'message' => 'Please Log in first'], 400);
         }
-        if (session('user')[0]->role == 'teacher' || session('user')[0]->role == 'admin') {
+        if (session('user')[0]->role == 'admin' && session('user')[0]->is_verified) {
+            return $next($request);
+        }
+        if (session('user')[0]->role == 'teacher') {
             return $next($request);
         }
         return response()->json(['status' => 'error', 'message' => 'You Are not allowed to do this'], 400);

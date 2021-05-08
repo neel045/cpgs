@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App;
-use Illuminate\Support\Facades\Storage;
-use PDF;
 
 class AdminController extends Controller
 {
@@ -63,6 +59,6 @@ class AdminController extends Controller
     function deleteTeacher($id)
     {
         DB::table('teachers')->delete($id);
-        return null;
+        return response()->json(['status' => "sucess", "message" => "Teacher has been deleted"], 200);
     }
 }

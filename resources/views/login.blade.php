@@ -49,8 +49,8 @@
             data:data
         })
         .then((res) =>{
-            console.log(res);
             if(res.data.status == 'sucess'){
+                alert(res.data.message);
                 window.location = '/dashboard'
             }
         } )

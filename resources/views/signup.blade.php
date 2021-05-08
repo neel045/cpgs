@@ -11,7 +11,7 @@
 
     <x-navbar />
 
-    <div class="container">
+    <div class="container mb-4">
         <h3 class="center">Signup</h3>
         <form id="signup">
             <div class="form-group">
@@ -57,9 +57,9 @@
             data:data
         })
         .then((res) =>{
-            console.log(res);
             if(res.status == 'sucess'){
-                window.location = '/'
+                alert("The Verification email has been sent please Verify your email account");
+                window.location = '/';
             }
         } )
     })
