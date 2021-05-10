@@ -29,7 +29,7 @@
                     <option value="teacher">Teacher</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Log In</button>
+            <button type="submit" class="btn btn-outline-primary">Log In</button>
         </form>
     </div>
 

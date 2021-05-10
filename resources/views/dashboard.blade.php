@@ -159,8 +159,8 @@
                         url:'/api/generatepaper',
                         data:data
                     })
-                // .then(res => alert(res.data.message))
-                .then(res => console.log(res.data))
+                .then(res => alert(res.data.message))
+                // .then(res => console.log(res.data))
             })
     } catch (error) {
 

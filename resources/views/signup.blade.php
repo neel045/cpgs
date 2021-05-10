@@ -39,7 +39,7 @@
                 <label for="exampleFormControlTextarea1">Address</label>
                 <textarea name="address" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">SignUP</button>
+            <button type="submit" class="btn btn-outline-primary">SignUP</button>
         </form>
     </div>
 
