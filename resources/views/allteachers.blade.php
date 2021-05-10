@@ -7,6 +7,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
     <title>CPGS</title>
     <style>
         *{
@@ -44,27 +46,29 @@
             {{-- <p>{{$teachers}}</p> --}}
             <tbody>
                 @foreach ($teachers as $teacher)
+                <tr>
                 <th scope="row">{{$teacher->id}}</th>
                 <td>{{$teacher->name}}</td>
                 <td>{{$teacher->email}}</td>
                 <td>{{$teacher->phone}}</td>
-                <td><button class="btn btn-outline-danger" onclick="deleteteacher({{$teacher->id}})">Delete</button></td>
-
+                <td><button class="btn btn-outline-danger" onclick="deleteteacher({{$teacher->id}})"><i class="bi bi-x-circle"></i>  Delete</button></td>
+            </tr>
                 @endforeach
-                <tr>
-                </tr>
             </tbody>
         </table>
         @endif
     </div>
     <script>
         function deleteteacher(id){
+            let deleteOrNot = confirm("Are You Sure Want to delete..?");
+            if(deleteOrNot){
             axios(
                 {method:'delete',
                 url:`/api/admin/deleteTeacher/${id}`
             }            ).then(
                 alert(res.data.message)
                 )
+            }
             }
             </script>
 

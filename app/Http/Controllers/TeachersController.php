@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -43,28 +42,49 @@ class TeachersController extends Controller
     function generatePaper(Request $request)
     {
         $subject_code = $request->subject_code;
-        // $diff = $request->difficulty;
+        $difficulty = $request->difficulty;
 
-        // switch ($diff) {
-        //     case '1':
-        //         $difficulty = [1, 1, 2];
-        //         break;
-        //     case '2':
-        //         $difficulty = [2, 1, 2];
-        //         break;
-        //     case '3':
-        //         $difficulty = [1, 1, 2];
-        //         break;
-        // }
+        switch ($difficulty) {
+            case '1':
+                $difficulty = [1, 1, 2];
+                break;
+            case '2':
+                $difficulty = [1, 2, 2];
+                break;
+            case '3':
+                $difficulty = [2, 2, 3];
+                break;
+        }
+
         switch ($subject_code) {
             case '3140709':
                 $subject = "Computer Networks";
+                $quePerModule3 = [2, 1, 3, 2, 0];
+                $quePerModule4 = [1, 1, 2, 2, 2];
+                $quePerModule7 = [1, 2, 2, 2, 2];
+                break;
+
+            case '3150703':
+                $subject = "Analysis and desigin Of Algorithm";
+                $quePerModule3 = [1, 2, 1, 0, 2, 1, 0, 0, 1];
+                $quePerModule4 = [0, 1, 2, 1, 1, 0, 2, 0, 1];
+                $quePerModule7 = [0, 2, 1, 2, 1, 1, 0, 1, 1];
+                break;
+
+            case '3130702':
+                $subject = "Data Structures";
+                $quePerModule3 = [0, 3, 2, 2, 1];
+                $quePerModule4 = [1, 2, 2, 3, 0];
+                $quePerModule7 = [1, 3, 3, 0, 2];
+                break;
+
+            case '3350704':
+                $subject = "Cryptography and Network Security";
+                $quePerModule3 = [1, 1, 2, 1, 3];
+                $quePerModule4 = [1, 1, 3, 1, 2];
+                $quePerModule7 = [2, 2, 3, 2, 0];
                 break;
         }
-        // if ($request->subject_code == 3140709) {
-        $quePerModule3 = [2, 1, 3, 2, 0];
-        $quePerModule4 = [1, 1, 2, 2, 2];
-        $quePerModule7 = [1, 2, 2, 2, 2];
 
         $questionsMark3 = [];
         $questionsMark4 = [];
@@ -72,12 +92,15 @@ class TeachersController extends Controller
 
 
         $queno = 0;
-
         for ($i = 0; $i < count($quePerModule3); $i++) {
             $question = DB::table('questions')
                 ->where('module', $i + 1)
                 ->where('subject_code', $subject_code)
                 ->where('marks', 3)
+                ->where(function ($query) use ($difficulty) {
+                    $query->where('difficulty', '<=', $difficulty[0])
+                        ->orWhere('difficulty', '<=', 3);
+                })
                 ->inRandomOrder()
                 ->limit($quePerModule3[$i])
                 ->get();
@@ -94,6 +117,10 @@ class TeachersController extends Controller
                 ->where('module', $i + 1)
                 ->where('subject_code', $subject_code)
                 ->where('marks', 4)
+                ->where(function ($query) use ($difficulty) {
+                    $query->where('difficulty', '<=', $difficulty[1])
+                        ->orWhere('difficulty', '<=', 3);
+                })
                 ->inRandomOrder()
                 ->limit($quePerModule4[$i])
                 ->get();
@@ -111,7 +138,10 @@ class TeachersController extends Controller
                 ->where('module', $i + 1)
                 ->where('subject_code', $subject_code)
                 ->where('marks', 7)
-                ->inRandomOrder()
+                ->where(function ($query) use ($difficulty) {
+                    $query->where('difficulty', '<=', $difficulty[2])
+                        ->orWhere('difficulty', '<=', 3);
+                })->inRandomOrder()
                 ->limit($quePerModule7[$i])
                 ->get();
 
@@ -150,6 +180,7 @@ class TeachersController extends Controller
             return response()->json(["status" => "error",  "message" => "Something Went Wrong\n$th->message"], 500);
         }
         return response()->json(["status" => "sucess",  "message" => "Check Your Email Paper Has Been Sent"], 200);
+        // return $questions;
     }
 
     function getAllPapers()

@@ -87,7 +87,7 @@
                 <label for="exampleFormControlInput4">phone</label>
                 <input name="phone" type="phone" class="form-control" id="exampleFormControlInput4" placeholder="" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Teacher</button>
+            <button type="submit" class="btn btn-outline-primary"><i class="bi bi-patch-plus"></i> Add Teacher</button>
         </form>
     </div>
     @endif
@@ -100,6 +100,9 @@
                 <label class="mr-sm-2" for="inlineFormCustomSelect1">Subject</label>
                 <select name="subject_code" class="custom-select mr-sm-2 form-control" id="inlineFormCustomSelect1">
                     <option value="3140709">Computer Network</option>
+                    <option value="3150703">Analysis And Design Of Algorithms</option>
+                    <option value="3130702">Data Structures</option>
+                    <option value="3350704">Cryptography and Network Security</option>
                 </select>
             </div>
             <div class="form-group">
@@ -113,11 +116,10 @@
             <div class="form-group">
                 <label class="mr-sm-2" for="inlineFormCustomSelect3">Paper Style</label>
                 <select name="paper_style" class="custom-select mr-sm-2 form-control" id="inlineFormCustomSelect3">
-                    <option value="mst">MST</option>
                     <option value="gtu">GTU</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Generate Paper</button>
+            <button type="submit" class="btn btn-outline-primary"><i class="bi bi-newspaper"></i> Generate Paper</button>
         </form>
     </div>
 
@@ -157,7 +159,8 @@
                         url:'/api/generatepaper',
                         data:data
                     })
-                .then(res => alert(res.data.message))
+                // .then(res => alert(res.data.message))
+                .then(res => console.log(res.data))
             })
     } catch (error) {
 

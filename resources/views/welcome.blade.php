@@ -28,11 +28,11 @@
         <p>After Generate The Paper The paper is automaticaly send to the Registered Email.</p>
         @if (!session('user'))
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/signup" role="button">Sign UP Now
+            <a class="btn btn-outline-primary btn-lg" href="/signup" role="button">Sign UP Now
             </a>
             @else
             <p class="lead">
-              <a class="btn btn-primary btn-lg" href="/dashboard" role="button">Go to DashBorad
+              <a class="btn btn-outline-primary btn-lg" href="/dashboard" role="button">Go to DashBorad
             </a>
 
         @endif
